@@ -1,0 +1,9 @@
+import initialisation
+import monde
+
+temps_reproduction_requin = initialisation.temps_reproduction_requin
+largeur_monde = initialisation.largeur_monde
+hauteur_monde = initialisation.hauteur_monde
+temps_reproduction_poisson = initialisation.temps_reproduction_poisson
+temps_reproduction_requin = initialisation.temps_reproduction_requin
+temps_starvation_requin = initialisation.temps_starvation_requin
