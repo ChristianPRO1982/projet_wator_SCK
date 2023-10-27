@@ -1,23 +1,40 @@
 import random
 
 class Poisson:
-    def __init__(self,temps_gestation,energie,position,direction, position):
-        self.temps_reproduction = temps_reproduction
+
+    def __init__(self,temps_gestation,energie,position):
         self.energie = energie
         self.position = position
-        self.temps=0
+        self.temps=temps_gestation
         self.categorie
         self.temps_gestation=temps_gestation
         self.position = position
     
-    def gestation (self):
+    def __str__(self):
+        return "poisson"
+    
+    def temps_gestation (self):
+        temps_gestation = 0
         self.temps_gestation +=1
-        if temps== 8:
+        if temps_gestation== 8:
             bebe == True
             temps = 0
         return bebe
 
 
-    def direction_poisson(self):
-        self.position = random.choice(liste_des_choix)
+    def position(self):
+        self.position= [x,y]
+        direction = random.choice(liste_des_choix)
+        if direction == "haut":
+            self.position = [x,y+1]
+        elif direction == "bas":
+            self.position == [x,y-1]
+        elif direction == "gauche":
+            self.position = [x-1,y]
+        elif direction == "droite":
+            self.position = [x+1,y]
+        return self.position
+
+
+
     
