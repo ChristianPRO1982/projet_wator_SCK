@@ -41,6 +41,4 @@ while tour < chronon:
     os.system("clear")
 
     print(monde)
-    print(monde.liste_animaux)
-
     tour += 1

@@ -20,7 +20,7 @@ class Poisson:
         return bebe
 
 
-    def position(self, liste_des_choix):
+    def se_deplacer(self, liste_des_choix):
         ancienne_position = self.position
         direction = random.choice(liste_des_choix)
         if direction == "haut":
