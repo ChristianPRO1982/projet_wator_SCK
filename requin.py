@@ -7,6 +7,7 @@ class Requin(Poisson):
         self.naissance = 0
         self.temps_reproduction_requin = temps_reproduction_requin
         self.position = position
+        self.type = "requin"
 
     def __str__(self):
         return "R"
