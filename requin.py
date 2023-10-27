@@ -1,14 +1,15 @@
-class Requin(Poisson):
-    def __init__(self,energie,naissance,temps_reproduction_requin,alimentation,position):
-        self.energie = energie
-        self.naissance = naissance
-        self.temps_reproduction_requin = temps_reproduction_requin
-        self.alimentation = alimentation
-        self.position = position
-        self.energie_max = energie
+from poisson import Poisson
 
-    def __st__(self):
-        return f"requin et poisson "
+class Requin(Poisson):
+    def __init__(self,energie,temps_reproduction_requin,position):
+        self.energie = energie
+        self.energie_max = energie
+        self.naissance = 0
+        self.temps_reproduction_requin = temps_reproduction_requin
+        self.position = position
+
+    def __str__(self):
+        return "R"
     
         
     def nourrir(self,nourriture):

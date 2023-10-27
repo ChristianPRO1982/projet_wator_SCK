@@ -1,7 +1,9 @@
+import os
+import time
 import initialisation
 import monde
-import poisson
-import requin
+from poisson import Poisson
+from requin import Requin
 
 # récupération des variables d'initialisation
 largeur_monde = int(initialisation.largeur_monde)
@@ -12,6 +14,7 @@ temps_energie_requin = int(initialisation.temps_energie_requin)
 chronon = int(initialisation.chronon)
 nb_poissons_init = int(initialisation.nb_poissons_init)
 nb_requins_init = int(initialisation.nb_requins_init)
+energie = 3
 
 # génération du monde vide
 monde = monde.Monde(largeur_monde,
@@ -24,11 +27,20 @@ monde = monde.Monde(largeur_monde,
 
 # génération des poissons (initialisation)
 for i in range(nb_poissons_init):
-    nouveau_poisson = poisson.Poisson(monde.initialisation_position_animal())
+    nouveau_poisson = Poisson(temps_reproduction_poisson, energie, monde.initialisation_position_animal())
     monde.ajout_animal(nouveau_poisson, nouveau_poisson.position)
+
+# génération des requins (initialisation)
+for i in range(nb_requins_init):
+    nouveau_requin = Requin(temps_energie_requin, temps_reproduction_requin, monde.initialisation_position_animal())
+    monde.ajout_animal(nouveau_requin, nouveau_requin.position)
 
 tour = 0
 while tour < chronon:
-    print(monde.tableau_monde)
+    time.sleep(0.7)
+    os.system("clear")
+
+    print(monde)
+    print(monde.liste_animaux)
 
     tour += 1

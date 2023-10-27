@@ -22,20 +22,32 @@ class Monde:
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
         #                 et non de 0 à "largeur_monde - 1" ou "hauteur_monde - 1"
-        self.tableau_monde = [[0 for x in range(largeur_monde + 1)] for y in range(hauteur_monde + 1)]
+        self.tableau_monde = [["H²O" for x in range(largeur_monde + 1)] for y in range(hauteur_monde + 1)]
         # génération de la liste des animaux
         self.liste_animaux = []
+
+
+    def __str__(self) -> str:
+        texte = ""
+        for ligne in self.tableau_monde:
+            for colonne in ligne:
+                texte += colonne + " "
+            texte += "\n"
+        return texte
+
 
     def initialisation_position_animal(self):
         while True:
             test_position = [randint(0, self.largeur_monde), randint(0, self.hauteur_monde)] # choix de la colonne / choix de la ligne
-            if self.tableau_monde[test_position[0]][test_position[1]] == 0:
+            if self.tableau_monde[test_position[0]][test_position[1]] == "H²O":
                 return test_position
+
 
     def newID(self):
         # permet de générer un ID unique par animal
         self.ID_animal += 1
         return self.ID_animal
+
 
     def ajout_animal(self, animal, position):
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
