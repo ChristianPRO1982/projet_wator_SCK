@@ -24,20 +24,19 @@ class Poisson:
     def se_deplacer(self, liste_des_choix, largeur_monde, hauteur_monde):
         ancienne_position = self.position
         direction = random.choice(liste_des_choix)
-        print(direction)
         if direction == "haut":
             self.position = [self.position[0] + 1, self.position[1]]
             if self.position[0] >= hauteur_monde:
                 self.position[0] = 0
         elif direction == "bas":
-            self.position == [self.position[0] - 1, self.position[1]]
+            self.position = [self.position[0] - 1, self.position[1]]
             if self.position[0] < 0:
                 self.position[0] = hauteur_monde - 1
         elif direction == "gauche":
             self.position = [self.position[0], self.position[1] - 1]
             if self.position[1] < 0:
                 self.position[1] = largeur_monde - 1
-        elif direction == "droite":
+        elif direction == "droit":
             self.position = [self.position[0], self.position[1] + 1]
             if self.position[1] >= largeur_monde:
                 self.position[1] = 0

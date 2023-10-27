@@ -35,11 +35,10 @@ for i in range(nb_requins_init):
     nouveau_requin = Requin(temps_energie_requin, temps_reproduction_requin, monde.initialisation_position_animal())
     monde.ajout_animal(nouveau_requin, nouveau_requin.position)
 
-print(monde)
 tour = 0
 while tour < chronon:
-    time.sleep(2)
-    # os.system("clear")
+    time.sleep(0.5)
+    os.system("clear")
 
     for animal in monde.liste_animaux:
         if animal.type == "poisson":

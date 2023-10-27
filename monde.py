@@ -57,17 +57,20 @@ class Monde:
 
     
     def liste_de_choix(self, position):
-        # ["haut", "bas", "gauche", "droit"]
-        # []
+        # génère une liste str avec les mots : ["haut", "bas", "gauche", "droit"]
         liste_de_choix = []
-        if self.tableau_monde[(position[0]+1) % self.largeur_monde][position[1]] == "¤":
-            liste_de_choix.append("droit")
-        if self.tableau_monde[(position[0]-1) % self.largeur_monde][position[1]] == "¤":
-            liste_de_choix.append("gauche")
-        if self.tableau_monde[position[0]][(position[1]+1) % self.hauteur_monde] == "¤":
-            liste_de_choix.append("haut")
-        if self.tableau_monde[position[0]][(position[1]-1) % self.hauteur_monde] == "¤":
-            liste_de_choix.append("bas")
+        try:
+            if self.tableau_monde[(position[0]+1) % self.largeur_monde][position[1]] == "¤":
+                liste_de_choix.append("droit")
+            if self.tableau_monde[(position[0]-1) % self.largeur_monde][position[1]] == "¤":
+                liste_de_choix.append("gauche")
+            if self.tableau_monde[position[0]][(position[1]+1) % self.hauteur_monde] == "¤":
+                liste_de_choix.append("haut")
+            if self.tableau_monde[position[0]][(position[1]-1) % self.hauteur_monde] == "¤":
+                liste_de_choix.append("bas")
+        except:
+            print("erreur",position)
+            position = 0/0
         return liste_de_choix
 
 
