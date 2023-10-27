@@ -74,11 +74,11 @@ class Monde:
     def deplacer_poisson(self, ancienne_position, nouvelle_position):
         # on déplace dans la nouvelle position le poisson
         print(ancienne_position, nouvelle_position)
-        self.tableau_monde[nouvelle_position[0], nouvelle_position[1]] = self.tableau_monde[ancienne_position[0], ancienne_position[1]]
+        self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = self.tableau_monde[ancienne_position[0]][ancienne_position[1]]
         
         # si le poisson s'est déplacé alors on met de l'eau dans l'ancienne position
         if ancienne_position != nouvelle_position:
-            self.tableau_monde[ancienne_position[0], ancienne_position[1]] = "¤"
+            self.tableau_monde[ancienne_position[0]][ancienne_position[1]] = "¤"
             return True # autorisation à faire une naissance
         
         return False # interdiction à faire une naissance
