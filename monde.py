@@ -22,7 +22,7 @@ class Monde:
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
         #                 et non de 0 à "largeur_monde - 1" ou "hauteur_monde - 1"
-        self.tableau_monde = [[0 for x in range(largeur_monde)] for y in range(hauteur_monde)]
+        self.tableau_monde = [[0 for x in range(largeur_monde + 1)] for y in range(hauteur_monde + 1)]
         # génération de la liste des animaux
         self.liste_animaux = []
 
@@ -30,7 +30,6 @@ class Monde:
         while True:
             test_position = [randint(0, self.largeur_monde), randint(0, self.hauteur_monde)]
             if self.tableau_monde[test_position[0]][test_position[1]] == 0:
-                print("test_position",test_position)
                 return test_position
 
     def newID(self):

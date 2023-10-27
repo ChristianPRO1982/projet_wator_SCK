@@ -1,4 +1,4 @@
-class poisson:
+class Poisson:
     def __init__(self, position) -> None:
         self.position = position
 

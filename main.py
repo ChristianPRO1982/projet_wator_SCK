@@ -24,9 +24,8 @@ monde = monde.Monde(largeur_monde,
 
 # génération des poissons (initialisation)
 for i in range(nb_poissons_init):
-    print("new position", monde.initialisation_position_animal())
-    nouveau_poisson = poisson(monde.initialisation_position_animal())
-    monde.ajout_animal(nouveau_poisson, [nouveau_poisson.position_colonne, nouveau_poisson.position_ligne])
+    nouveau_poisson = poisson.Poisson(monde.initialisation_position_animal())
+    monde.ajout_animal(nouveau_poisson, nouveau_poisson.position)
 
 tour = 0
 while tour < nb_tour_simulation:
