@@ -9,7 +9,7 @@ hauteur_monde = int(initialisation.hauteur_monde)
 temps_reproduction_poisson = int(initialisation.temps_reproduction_poisson)
 temps_reproduction_requin = int(initialisation.temps_reproduction_requin)
 temps_energie_requin = int(initialisation.temps_energie_requin)
-nb_tour_simulation = int(initialisation.nb_tour_simulation)
+chronon = int(initialisation.chronon)
 nb_poissons_init = int(initialisation.nb_poissons_init)
 nb_requins_init = int(initialisation.nb_requins_init)
 
@@ -28,7 +28,7 @@ for i in range(nb_poissons_init):
     monde.ajout_animal(nouveau_poisson, nouveau_poisson.position)
 
 tour = 0
-while tour < nb_tour_simulation:
-    print(nouveau_poisson)
+while tour < chronon:
+    print(monde.tableau_monde)
 
     tour += 1

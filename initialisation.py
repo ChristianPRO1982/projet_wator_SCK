@@ -1,11 +1,13 @@
-largeur_monde = 20
-hauteur_monde = 20
-temps_reproduction_poisson = 8
-temps_reproduction_requin = 12
-temps_energie_requin = 7
-nb_tour_simulation = 2
-nb_poissons_init = 10
-nb_requins_init = 10
+# initialisation en dur
+# /!\ NE PAS TOUCHER /!\
+largeur_monde = "20"
+hauteur_monde = "20"
+temps_reproduction_poisson = "8"
+temps_reproduction_requin = "12"
+temps_energie_requin = "7"
+chronon = "2"
+nb_poissons_init = "10"
+nb_requins_init = "10"
 
 # Ouvrir un fichier en mode lecture
 with open('monde.ini', 'r') as f:
@@ -26,8 +28,8 @@ with open('monde.ini', 'r') as f:
                 temps_reproduction_requin = ligne[1]
             elif ligne[0] == 'temps_energie_requin':
                 temps_energie_requin = ligne[1]
-            elif ligne[0] == 'nb_tour_simulation':
-                nb_tour_simulation = ligne[1]
+            elif ligne[0] == 'chronon':
+                chronon = ligne[1]
             elif ligne[0] == 'nb_poissons_init':
                 nb_poissons_init = ligne[1]
             elif ligne[0] == 'nb_requins_init':

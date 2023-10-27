@@ -28,7 +28,7 @@ class Monde:
 
     def initialisation_position_animal(self):
         while True:
-            test_position = [randint(0, self.largeur_monde), randint(0, self.hauteur_monde)]
+            test_position = [randint(0, self.largeur_monde), randint(0, self.hauteur_monde)] # choix de la colonne / choix de la ligne
             if self.tableau_monde[test_position[0]][test_position[1]] == 0:
                 return test_position
 
@@ -40,4 +40,4 @@ class Monde:
     def ajout_animal(self, animal, position):
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
         self.liste_animaux.append(animal)
-        self.tableau_monde[position[0]][position[1]] = animal
+        self.tableau_monde[position[0]][position[1]] = str(animal)
