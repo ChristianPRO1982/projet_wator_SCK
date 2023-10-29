@@ -3,11 +3,17 @@
 largeur_monde = "20"
 hauteur_monde = "20"
 temps_reproduction_poisson = "8"
+temps_reproduction_poisson_max = "15"
 temps_reproduction_requin = "12"
+temps_reproduction_requin_max = "18"
 temps_energie_requin = "7"
-chronon = "2"
+temps_energie_requin_max = "14"
 nb_poissons_init = "10"
+nb_poissons_init_max = "15"
 nb_requins_init = "10"
+nb_requins_init_max = "15"
+auto_simu="0"
+chronon = "10"
 
 # Ouvrir un fichier en mode lecture
 with open('monde.ini', 'r') as f:

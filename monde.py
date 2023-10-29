@@ -31,7 +31,7 @@ class Monde:
         texte = ""
         for ligne in self.tableau_monde:
             for colonne in ligne:
-                texte += colonne + " "
+                texte += str(colonne) + " "
             texte += "\n"
         return texte
 
@@ -39,7 +39,6 @@ class Monde:
     def initialisation_position_animal(self):
         while True:
             test_position = [randint(0, self.hauteur_monde - 1), randint(0, self.largeur_monde - 1)] # choix de la colonne / choix de la ligne
-            print(test_position)
             if self.tableau_monde[test_position[0]][test_position[1]] == "¤":
                 return test_position
 
@@ -53,35 +52,53 @@ class Monde:
     def ajout_animal(self, animal, position):
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
         self.liste_animaux.append(animal)
-        self.tableau_monde[position[0]][position[1]] = str(animal)
+        self.tableau_monde[position[0]][position[1]] = animal
 
     
     def liste_de_choix(self, position):
         # génère une liste str avec les mots : ["haut", "bas", "gauche", "droit"]
+        # si un poisson existe dans une case, sa valeur nutritive est indiquée en plus
         liste_de_choix = []
-        try:
-            if self.tableau_monde[(position[0]+1) % self.largeur_monde][position[1]] == "¤":
-                liste_de_choix.append("droit")
-            if self.tableau_monde[(position[0]-1) % self.largeur_monde][position[1]] == "¤":
-                liste_de_choix.append("gauche")
-            if self.tableau_monde[position[0]][(position[1]+1) % self.hauteur_monde] == "¤":
-                liste_de_choix.append("haut")
-            if self.tableau_monde[position[0]][(position[1]-1) % self.hauteur_monde] == "¤":
-                liste_de_choix.append("bas")
-        except:
-            print("erreur",position)
-            position = 0/0
+        if self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]] == "¤":
+            liste_de_choix.append(("haut", "", 0))
+        elif self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]] != "¤":
+            animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
+            if str(animal) == 'P':
+                liste_de_choix.append(("haut", "poisson", animal.energie))
+        
+        if self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]] == "¤":
+            liste_de_choix.append(("bas", "", 0))
+        elif self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]] != "¤":
+            animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
+            if str(animal) == 'P':
+                liste_de_choix.append(("bas", "poisson", animal.energie))
+        
+        if self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde] == "¤":
+            liste_de_choix.append(("droit", "", 0))
+        elif self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde] != "¤":
+            animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
+            if str(animal) == 'P':
+                liste_de_choix.append(("droit", "poisson", animal.energie))
+        
+        if self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde] == "¤":
+            liste_de_choix.append(("gauche", "", 0))
+        elif self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde] != "¤":
+            animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
+            if str(animal) == 'P':
+                liste_de_choix.append(("gauche", "poisson", animal.energie))
+        
         return liste_de_choix
 
 
-    def deplacer_poisson(self, ancienne_position, nouvelle_position):
+    def deplacer_animal(self, animal, ancienne_position, nouvelle_position):
         # on déplace dans la nouvelle position le poisson
-        print(ancienne_position, nouvelle_position)
-        self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = self.tableau_monde[ancienne_position[0]][ancienne_position[1]]
+        # self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = str(animal)
+        self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = animal
         
-        # si le poisson s'est déplacé alors on met de l'eau dans l'ancienne position
-        if ancienne_position != nouvelle_position:
-            self.tableau_monde[ancienne_position[0]][ancienne_position[1]] = "¤"
-            return True # autorisation à faire une naissance
-        
-        return False # interdiction à faire une naissance
+        # on met de l'eau dans l'ancienne position
+        self.tableau_monde[ancienne_position[0]][ancienne_position[1]] = "¤"
+    
+
+    def plein(self):
+        # on vérifie qu'il reste au moins une place
+        return len(self.liste_animaux)
