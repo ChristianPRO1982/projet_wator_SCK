@@ -145,5 +145,5 @@ class Monde:
         # on supprime de la liste des animaux l'animal mangé
         self.liste_animaux.pop(index_animal)
 
-        # on supprime du tableau_monde l'animal mort
-        self.tableau_monde[position[0]][position[1]]
+        # on supprime du tableau_monde l'animal mort en mettant de l'eau à la place
+        self.tableau_monde[position[0]][position[1]] = "¤"

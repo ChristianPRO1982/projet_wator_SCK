@@ -46,7 +46,7 @@ print(monde, "init")
 etat_du_monde = [] # permet de sauvegarder l'état du monde à chaque chronon
 tour = 1
 while tour <= chronon:
-    time.sleep(0.3)
+    time.sleep(1)
     os.system("clear")
 
     # à chaque tour de la simulation, MAIN appelle tous les ANIMAUX pour appliquer les règles du jeu
