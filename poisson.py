@@ -22,25 +22,27 @@ class Poisson:
         return bebe
     
 
-    def liste_des_choix(self, liste_des_choix):
+    def liste_des_choix(self, liste_des_choix_tupple):
+        # on transforme le tuple retourné par la fonction "liste de choix" dans monde.py en liste
+        #si l'energie est 0, on ajoute le premier indice qui est la direction
         liste_des_choix_poisson = []
-        for choix in liste_des_choix:
+        for choix in liste_des_choix_tupple:
             if choix[1] == "":
                 liste_des_choix_poisson.append(choix[0])
-        return liste_des_choix_poisson
+        return liste_des_choix_poisson, False
 
 
-    def se_deplacer(self, liste_des_choix, largeur_monde, hauteur_monde):
+    def se_deplacer(self, liste_des_choix_tupple, largeur_monde, hauteur_monde):
         # on sauvegarde l'ancienne position pour que MONDE mette de l'eau ou une naissance dans cette case
         ancienne_position = self.position
         
         # on récupère dans 'liste_des_choix' seulement les cases utiles pour l'animal en question (poisson ou requin)
-        liste_des_choix = self.liste_des_choix(liste_des_choix)
+        liste_des_directions, manger = self.liste_des_choix(liste_des_choix_tupple)
 
         # on véridie si l'ANIMAL a la possibilité de se déplacer
-        if len(liste_des_choix) > 0:
+        if len(liste_des_directions) > 0:
             # on choisi au hazard une direction dans la liste des choix adpaté à l'animal
-            direction = random.choice(liste_des_choix)
+            direction = random.choice(liste_des_directions)
 
             if direction == "haut":
                 self.position = [self.position[0] + 1, self.position[1]]
@@ -60,8 +62,9 @@ class Poisson:
                     self.position[1] = 0
         
 
-        return ancienne_position, self.position, self.calcul_gestation()
+        return ancienne_position, self.position, self.calcul_gestation(),manger
 
 
 
-    
+  
+
