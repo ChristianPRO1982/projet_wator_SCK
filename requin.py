@@ -5,35 +5,25 @@ class Requin(Poisson):
         self.ID = ID
         self.energie = energie
         self.energie_max = energie
-        # self.naissance = 0
-        # self.temps_reproduction_requin = temps_reproduction_requin
         self.gestation = 0
         self.temps_gestation = temps_reproduction_requin
         self.position = position
-        # self.type = "requin"
 
 
 
     def __str__(self):
         return "R"
     
-        
+    #  creer une methode pour nourrir le requin
     def nourrir(self,nourriture):
-        self.energie -= nourriture
-        return self.energie
+        self.energie += nourriture
 
 
-    # def reproduction(self):
-    #     if self.energie >= self.energie_max and self.naissance < self.temps_reproduction_requin :
-    #         self.naissance += 1
-    #     else:
-    #         pass
+    #  on va creer une methode pour baisser l'enrgie du requin s'il mange pas
+    def baisse_energie(self):
+        self.energie -= 1
 
 
-    def position_du_requin(self,nouevelle_position):
-        self.position = nouevelle_position
-        return self.position
-        
     def liste_des_choix(self, liste_des_choix):
         liste_des_choix_poisson = []
         liste_des_choix_eau = []
