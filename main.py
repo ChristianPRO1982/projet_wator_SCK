@@ -46,8 +46,8 @@ print(monde, "init")
 etat_du_monde = [] # permet de sauvegarder l'état du monde à chaque chronon
 tour = 1
 while tour <= chronon:
-    time.sleep(1)
-    os.system("clear")
+    time.sleep(0.5)
+    # os.system("clear")
 
     # à chaque tour de la simulation, MAIN appelle tous les ANIMAUX pour appliquer les règles du jeu
     for animal in monde.liste_animaux:
@@ -85,11 +85,18 @@ while tour <= chronon:
                 nouvel_animal = Requin(monde.newID(), temps_energie_requin, temps_reproduction_requin, ancienne_position)
             monde.ajout_animal(nouvel_animal, nouvel_animal.position)
 
+    # gestion de la mort des requins
+    indice_animal = 0
+    while len(monde.liste_animaux) > indice_animal:
         # cas où l'ANIMAL est arrivé à 0 d'énergie
-        if animal.energie <= 0:
-            monde.mort_animal(animal.ID)
+        if monde.liste_animaux[indice_animal].energie <= 0:
+            monde.mort_animal(monde.liste_animaux[indice_animal])
+        else:
+            indice_animal += 1
 
     print(monde, tour, "/", chronon)
+    print("nombre de poissons :", monde.nb_poisson)
+    print("nombre de requins :", monde.nb_requin)
     etat_du_monde.append((tour, monde.nb_poisson, monde.nb_requin, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin))
     tour += 1
 

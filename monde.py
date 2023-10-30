@@ -32,6 +32,7 @@ class Monde:
 
 
     def __str__(self) -> str:
+        # méthode permettant d'afficher sur la console le monde en scannant toutes les lignes puis toutes les colonnes
         texte = ""
         for ligne in self.tableau_monde:
             for colonne in ligne:
@@ -99,8 +100,9 @@ class Monde:
 
     def deplacer_animal(self, animal, ancienne_position, nouvelle_position):
         # on déplace dans la nouvelle position le poisson
-        # self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = str(animal)
         self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = animal
+        if str(animal) == "R":
+            self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = animal.energie
         
         # on met de l'eau dans l'ancienne position
         self.tableau_monde[ancienne_position[0]][ancienne_position[1]] = "¤"
@@ -130,20 +132,17 @@ class Monde:
         return energie
     
 
-    def mort_animal(self, animalID):
-        # on recherche dans la liste des animaux l'animal qui doit mourrir
-        i = 0
-        for animal in self.liste_animaux:
-            if animal.ID == animalID:
-                index_animal = i
-                break
-            i += 1
-        
+    def mort_animal(self, animal):
         # on récupère les coordonnées de l'animal
-        position = self.liste_animaux[index_animal].position
-
-        # on supprime de la liste des animaux l'animal mangé
-        self.liste_animaux.pop(index_animal)
-
+        # position = self.liste_animaux[animal].position
+        position = animal.position
+        
         # on supprime du tableau_monde l'animal mort en mettant de l'eau à la place
         self.tableau_monde[position[0]][position[1]] = "¤"
+
+        # on supprime de la liste des animaux l'animal
+        self.liste_animaux.remove(animal)
+        
+        # on compte le nombre total de requin
+        # if str(animal) == "R": 
+        self.nb_requin -= 1
