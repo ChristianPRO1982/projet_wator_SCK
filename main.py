@@ -48,7 +48,7 @@ while tour <= chronon:
         liste_de_choix = monde.liste_de_choix(animal.position)
 
         # l'ANIMAL se déplace
-        ancienne_position, nouvelle_position, bebe = animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde)
+        ancienne_position, nouvelle_position, bebe,manger = animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde)
         
         # l'ANIMAL indique au MONDE  ses actions
         # l'ANIMAL se déplace
