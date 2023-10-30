@@ -117,8 +117,33 @@ class Monde:
         for animal in self.liste_animaux:
             if animal.position[0] == position[0] and animal.position[1] == position[1]:
                 index_animal_mange = i
+                break
             i += 1
         
+        # on récupère l'énergie de l'animal mangé
+        energie = self.liste_animaux[index_animal_mange].energie
+
         # on supprime de la liste des animaux l'animal mangé
         self.liste_animaux.pop(index_animal_mange)
-        print("animal mangé")
+
+        # on retourne l'énergie mangée
+        return energie
+    
+
+    def mort_animal(self, animalID):
+        # on recherche dans la liste des animaux l'animal qui doit mourrir
+        i = 0
+        for animal in self.liste_animaux:
+            if animal.ID == animalID:
+                index_animal = i
+                break
+            i += 1
+        
+        # on récupère les coordonnées de l'animal
+        position = self.liste_animaux[index_animal].position
+
+        # on supprime de la liste des animaux l'animal mangé
+        self.liste_animaux.pop(index_animal)
+
+        # on supprime du tableau_monde l'animal mort
+        self.tableau_monde[position[0]][position[1]]

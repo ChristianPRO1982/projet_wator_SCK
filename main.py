@@ -57,11 +57,19 @@ while tour <= chronon:
         # l'ANIMAL se déplace
         ancienne_position, nouvelle_position, bebe, manger = animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde)
         
-        # l'ANIMAL indique au MONDE  ses actions
+
+        ##########################################
+        # l'ANIMAL indique au MONDE  ses actions #
+        ##########################################
+
+        # le requin perd 1 d'énergie
+        if str(animal) == 'R':
+            animal.baisse_energie()
 
         # l'ANIMAL mange un autre animal dans la nouvelle position
         if manger == True:
-            monde.animal_mange(nouvelle_position)
+            animal.nourrir(monde.animal_mange(nouvelle_position))
+            
 
         # l'ANIMAL se déplace
         if ancienne_position != nouvelle_position:
@@ -76,6 +84,10 @@ while tour <= chronon:
                 # requin
                 nouvel_animal = Requin(monde.newID(), temps_energie_requin, temps_reproduction_requin, ancienne_position)
             monde.ajout_animal(nouvel_animal, nouvel_animal.position)
+
+        # cas où l'ANIMAL est arrivé à 0 d'énergie
+        if animal.energie <= 0:
+            monde.mort_animal(animal.ID)
 
     print(monde, tour, "/", chronon)
     etat_du_monde.append((tour, monde.nb_poisson, monde.nb_requin, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin))
