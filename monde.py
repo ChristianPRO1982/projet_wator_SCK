@@ -42,8 +42,8 @@ class Monde:
 
     def initialisation_position_animal(self):
         while True:
-            test_position = [randint(0, self.largeur_monde), randint(0, self.hauteur_monde)] # choix de la colonne / choix de la ligne
-            if self.tableau_monde[test_position[0]][test_position[1]] == "≈≈":
+            test_position = [randint(0, self.hauteur_monde - 1), randint(0, self.largeur_monde - 1)] # choix de la colonne / choix de la ligne
+            if self.tableau_monde[test_position[0]][test_position[1]] == "¤":
                 return test_position
 
 
@@ -121,22 +121,4 @@ class Monde:
         
         # on supprime de la liste des animaux l'animal mangé
         self.liste_animaux.pop(index_animal_mange)
-        self.tableau_monde[position[0]][position[1]] = str(animal)
-
-    def liste_de_choix(self, position):
-        # renvoie une listes des positions adjacentes valides d'un poisson
-        liste_de_choix = []
-        if self.tableau_monde[position[0]+1][position[1]]== "≈≈":
-            liste_de_choix.append('droit')
-        elif self.tableau_monde[position[0]-1][position[1]]== "≈≈":
-            liste_de_choix.append('gauche')
-        elif self.tableau_monde[position[0]][position[1]+1]== "≈≈":
-            liste_de_choix.append('haut')
-        elif self.tableau_monde[position[0]][position[1]-1]== "≈≈":
-            liste_de_choix.append('bas')
-        return liste_de_choix
-    
-        
-        
-    
-        
+        print("animal mangé")

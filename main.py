@@ -82,7 +82,5 @@ while tour <= chronon:
     tour += 1
 
 # on ajoute la simulation en BDD
-SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin)
-SQL.new_simulation_evolution(etat_du_monde)
-print(monde)
-        # tour += 1
+# SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin)
+# SQL.new_simulation_evolution(etat_du_monde)

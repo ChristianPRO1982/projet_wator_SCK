@@ -2,6 +2,7 @@ import sqlite3
 
 '''
 INITIALISATION DE LA BASE DE DONNEES
+
 DROP TABLE IF EXISTS `simulation`;
 DROP TABLE IF EXISTS `simulation_evolution`;
 
@@ -71,7 +72,7 @@ INSERT INTO simulation (date,
                         nb_poisson_fin,
                         nb_requin_fin,
                         nb_eau_fin)
-     VALUES (DATETIME('NOW') ,
+     VALUES (DATETIME('NOW'),
              {monde.largeur_monde},
              {monde.hauteur_monde},
              {monde.temps_reproduction_poisson},
