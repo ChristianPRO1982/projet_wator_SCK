@@ -13,6 +13,7 @@ class Requin(Poisson):
         # self.type = "requin"
 
 
+
     def __str__(self):
         return "R"
     
@@ -53,3 +54,22 @@ class Requin(Poisson):
         else:
             # cas où il n'y a pas des poissons à manger
             return liste_des_choix_requin_eau
+            return liste_des_choix_requin_eau
+        
+    def liste_des_choix(self, liste_des_choix):
+        print("liste des choix") 
+
+        liste_des_choix_poisson = []
+        liste_des_choix_eau = []
+        for choix in liste_des_choix:
+            if choix[1] == 'poisson':
+                liste_des_choix_poisson.append(choix[0])
+            
+            else:
+                liste_des_choix_eau.append(choix[0])
+        if len(liste_des_choix_poisson) == 0:
+            return liste_des_choix_eau
+        else:
+            return liste_des_choix_poisson
+        
+        

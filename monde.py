@@ -26,7 +26,11 @@ class Monde:
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
         #                 et non de 0 à "largeur_monde - 1" ou "hauteur_monde - 1"
+<<<<<<< HEAD
         self.tableau_monde = [["¤" for x in range(largeur_monde)] for y in range(hauteur_monde)]
+=======
+        self.tableau_monde = [["≈≈" for x in range(largeur_monde + 1)] for y in range(hauteur_monde + 1)]
+>>>>>>> requin
         # génération de la liste des animaux
         self.liste_animaux = []
 
@@ -42,8 +46,13 @@ class Monde:
 
     def initialisation_position_animal(self):
         while True:
+<<<<<<< HEAD
             test_position = [randint(0, self.hauteur_monde - 1), randint(0, self.largeur_monde - 1)] # choix de la colonne / choix de la ligne
             if self.tableau_monde[test_position[0]][test_position[1]] == "¤":
+=======
+            test_position = [randint(0, self.largeur_monde), randint(0, self.hauteur_monde)] # choix de la colonne / choix de la ligne
+            if self.tableau_monde[test_position[0]][test_position[1]] == "≈≈":
+>>>>>>> requin
                 return test_position
 
 
@@ -56,6 +65,7 @@ class Monde:
     def ajout_animal(self, animal, position):
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
         self.liste_animaux.append(animal)
+<<<<<<< HEAD
         self.tableau_monde[position[0]][position[1]] = animal
         # on compte les animaux
         if str(animal) == "P": self.nb_poisson += 1
@@ -121,3 +131,24 @@ class Monde:
         
         # on supprime de la liste des animaux l'animal mangé
         self.liste_animaux.pop(index_animal_mange)
+=======
+        self.tableau_monde[position[0]][position[1]] = str(animal)
+
+    def liste_de_choix(self, position):
+        # renvoie une listes des positions adjacentes valides d'un poisson
+        liste_de_choix = []
+        if self.tableau_monde[position[0]+1][position[1]]== "≈≈":
+            liste_de_choix.append('droit')
+        elif self.tableau_monde[position[0]-1][position[1]]== "≈≈":
+            liste_de_choix.append('gauche')
+        elif self.tableau_monde[position[0]][position[1]+1]== "≈≈":
+            liste_de_choix.append('haut')
+        elif self.tableau_monde[position[0]][position[1]-1]== "≈≈":
+            liste_de_choix.append('bas')
+        return liste_de_choix
+    
+        
+        
+    
+        
+>>>>>>> requin
