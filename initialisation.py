@@ -30,16 +30,26 @@ with open('monde.ini', 'r') as f:
                 hauteur_monde = ligne[1]
             elif ligne[0] == 'temps_reproduction_poisson':
                 temps_reproduction_poisson = ligne[1]
+            elif ligne[0] == 'temps_reproduction_poisson_max':
+                temps_reproduction_poisson_max = ligne[1]
             elif ligne[0] == 'temps_reproduction_requin':
                 temps_reproduction_requin = ligne[1]
+            elif ligne[0] == 'temps_reproduction_requin_max':
+                temps_reproduction_requin_max = ligne[1]
             elif ligne[0] == 'temps_energie_requin':
                 temps_energie_requin = ligne[1]
+            elif ligne[0] == 'temps_energie_requin_max':
+                temps_energie_requin_max = ligne[1]
             elif ligne[0] == 'chronon':
                 chronon = ligne[1]
             elif ligne[0] == 'nb_poissons_init':
                 nb_poissons_init = ligne[1]
+            elif ligne[0] == 'nb_poissons_init_max':
+                nb_poissons_init_max = ligne[1]
             elif ligne[0] == 'nb_requins_init':
                 nb_requins_init = ligne[1]
+            elif ligne[0] == 'nb_requins_init_max':
+                nb_requins_init_max = ligne[1]
         line = f.readline()  # Lire la ligne suivante
 
 # Fermer le fichier automatiquement à la fin du bloc 'with'

@@ -18,6 +18,10 @@ class Monde:
         self.nb_poissons_init = nb_poissons_init
         self.nb_requins_init = nb_requins_init
         self.ID_animal = 0 # initialisation identifiant
+        self.nb_poisson = 0 # nombre de poisson : pour afficher l'état du monde à un instant donné
+        self.nb_requin = 0 # nombre de requin : pour afficher l'état du monde à un instant donné
+        self.nb_poisson_max = 0 # nombre de poisson au maximum obtenu pendant la simulation
+        self.nb_requin_max = 0 # nombre de requin au maximum obtenu pendant la simulation
 
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
@@ -53,6 +57,9 @@ class Monde:
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
         self.liste_animaux.append(animal)
         self.tableau_monde[position[0]][position[1]] = animal
+        # on compte les animaux
+        if str(animal) == "P": self.nb_poisson += 1
+        if str(animal) == "R": self.nb_requin += 1
 
     
     def liste_de_choix(self, position):
@@ -100,5 +107,17 @@ class Monde:
     
 
     def plein(self):
-        # on vérifie qu'il reste au moins une place
+        # pour vérifier qu'il reste au moins une place
         return len(self.liste_animaux)
+    
+
+    def animal_mange(self, position):
+        # on recherche dans la liste des animaux celui qui est dans la future position de l'animal qui est en train de le manger
+        i = 0
+        for animal in self.liste_animaux:
+            if animal.position[0] == position[0] and animal.position[1] == position[1]:
+                index_animal_mange = i
+            i += 1
+        
+        # on supprime de la liste des animaux l'animal mangé
+        self.liste_animaux.pop(index_animal_mange)

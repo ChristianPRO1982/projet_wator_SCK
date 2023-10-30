@@ -3,6 +3,7 @@ import sqlite3
 '''
 INITIALISATION DE LA BASE DE DONNEES
 DROP TABLE IF EXISTS `simulation`;
+DROP TABLE IF EXISTS `simulation_evolution`;
 
 CREATE TABLE simulation (
 	ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -10,20 +11,24 @@ CREATE TABLE simulation (
 	largeur_monde INTEGER,
 	hauteur_monde INTEGER,
 	temps_reproduction_poisson INTEGER,
-	temps_reproduction_poisson_max INTEGER,
 	temps_reproduction_requin INTEGER,
-	temps_reproduction_requin_max INTEGER,
 	temps_energie_requin INTEGER,
-	temps_energie_requin_max INTEGER,
 	nb_poissons_init INTEGER,
-	nb_poissons_max INTEGER,
 	nb_requins_init INTEGER,
-	nb_requins_max INTEGER,
 	chronon INTEGER,
 	chronon_stop INTEGER,
 	nb_poisson_fin INTEGER,
 	nb_requin_fin INTEGER,
 	nb_eau_fin INTEGER
+);
+
+CREATE TABLE simulation_evolution (
+	ID INTEGER,
+	tour INTEGER,
+	nb_poisson INTEGER,
+	nb_requin INTEGER,
+	nb_eau INTEGER,
+	CONSTRAINT NewTable_PK PRIMARY KEY (ID,tour)
 );
 '''
 
@@ -48,78 +53,63 @@ def query_error(query: str):
     print("")
 
 
-def new_simulation(
-                   date,
-                   largeur_monde,
-                   hauteur_monde,
-                   temps_reproduction_poisson,
-                   temps_reproduction_poisson_max,
-                   temps_reproduction_requin,
-                   temps_reproduction_requin_max,
-                   temps_energie_requin,
-                   temps_energie_requin_max,
-                   nb_poissons_init,
-                   nb_poissons_max,
-                   nb_requins_init,
-                   nb_requins_max,
+def new_simulation(monde,
                    chronon,
                    chronon_stop,
-                   nb_poisson_fin,
-                   nb_requin_fin,
                    nb_eau_fin):
     query = f'''
-INSERT INTO user (date,
-                  largeur_monde,
-                  hauteur_monde,
-                  temps_reproduction_poisson,
-                  temps_reproduction_poisson_max,
-                  temps_reproduction_requin,
-                  temps_reproduction_requin_max,
-                  temps_energie_requin,
-                  temps_energie_requin_max,
-                  nb_poissons_init,
-                  nb_poissons_max,
-                  nb_requins_init,
-                  nb_requins_max,
-                  chronon,
-                  chronon_stop,
-                  nb_poisson_fin,
-                  nb_requin_fin,
-                  nb_eau_fin)
-     VALUES ("{username}",
-             "{largeur_monde}",
-             "{hauteur_monde}",
-             "{temps_reproduction_poisson}",
-             "{temps_reproduction_poisson_max}",
-             "{temps_reproduction_requin}",
-             "{temps_reproduction_requin_max}",
-             "{temps_energie_requin}",
-             "{temps_energie_requin_max}",
-             "{nb_poissons_init}",
-             "{nb_poissons_max}",
-             "{nb_requins_init}",
-             "{nb_requins_max}",
-             "{chronon}",
-             "{chronon_stop}",
-             "{nb_poisson_fin}",
-             "{nb_requin_fin}",
-             "{nb_eau_fin}")'''
+INSERT INTO simulation (date,
+                        largeur_monde,
+                        hauteur_monde,
+                        temps_reproduction_poisson,
+                        temps_reproduction_requin,
+                        temps_energie_requin,
+                        nb_poissons_init,
+                        nb_requins_init,
+                        chronon,
+                        chronon_stop,
+                        nb_poisson_fin,
+                        nb_requin_fin,
+                        nb_eau_fin)
+     VALUES (DATETIME('NOW') ,
+             {monde.largeur_monde},
+             {monde.hauteur_monde},
+             {monde.temps_reproduction_poisson},
+             {monde.temps_reproduction_requin},
+             {monde.temps_energie_requin},
+             {monde.nb_poissons_init},
+             {monde.nb_requins_init},
+             {chronon},
+             {chronon_stop},
+             {monde.nb_poisson},
+             {monde.nb_requin},
+             {nb_eau_fin})'''
+
+    try:
+        cur.execute(query)
+        con.commit()
+
+    except:
+        query_error(query)
+
+
+def new_simulation_evolution(etat_du_monde):
+    ID_max = IDmax()
+    virgule = ""
+
+    query = 'INSERT INTO simulation_evolution VALUES'
     
-    cur.execute(query)
-    con.commit()
+    for etat in etat_du_monde:
+        # on crée un enregistrement par état du monde (par chronon)
+        query += virgule + f' ({ID_max}, {etat[0]}, {etat[1]}, {etat[2]}, {etat[3]})'
+        virgule = ", "
 
+    try:
+        cur.execute(query)
+        con.commit()
 
-def list_user():
-    print(spaces("ID",5), spaces("UserName",15), spaces("Prénom",15), spaces("Nom",15), spaces("Age", 3), spaces("Courriel",20), spaces("Adresse",30))
-    print("")
-
-    query = 'SELECT * FROM user'
-
-    res = cur.execute(query)
-    res = res.fetchall()
-
-    for user in res:
-        print(spaces(user[0],5), spaces(user[1],15), spaces(user[2],15), spaces(user[3], 15), spaces(user[4],3), spaces(user[5],20), spaces(user[6],30))
+    except:
+        query_error(query)
 
 
 def spaces(string: str, length: int) -> str:
@@ -130,38 +120,19 @@ def spaces(string: str, length: int) -> str:
     return str_return
 
 
-def bmi_analysis(user_id: int):
-    print("")
+def IDmax() -> int:
+    # permet de connaitre l'ID du dernier enregistrement dans la table `simulation`
 
     query = f'''
-SELECT u.first_name || " " || u.last_name name, u.age, b.weight, b.height, b.bmi_value,
-       CASE 
-           WHEN b.bmi_value < ROUND(ba.bmi_min * 17 / 19) THEN '\033[1;31;40mdénutrition\033[1;37;40m'
-           WHEN b.bmi_value >= ROUND(ba.bmi_min * 17 / 19) AND b.bmi_value < ba.bmi_min THEN '\033[1;34;40mmaigreur\033[1;37;40m'
-           WHEN b.bmi_value >= ba.bmi_min AND b.bmi_value <= ba.bmi_max THEN '\033[1;32;40mcorpulence normale\033[1;37;40m'
-           WHEN b.bmi_value > ba.bmi_max AND b.bmi_value < ROUND(ba.bmi_max * 30 / 24) THEN '\033[1;33;40msurpoids\033[1;37;40m'
-           WHEN b.bmi_value >= ROUND(ba.bmi_max * 30 / 24) AND b.bmi_value < ROUND(ba.bmi_max * 35 / 24) THEN '\033[1;34;40mobésité modérée\033[1;37;40m'
-           WHEN b.bmi_value >= ROUND(ba.bmi_max * 35 / 24) AND b.bmi_value < ROUND(ba.bmi_max * 40 / 24) THEN '\033[1;34;40mobésité sévère\033[1;37;40m'
-           WHEN b.bmi_value >= ROUND(ba.bmi_max * 40 / 24) THEN '\033[1;35;40mobésité morbide\033[1;37;40m'
-       END AS 'BMI',
-       STRFTIME('%d/%m/%Y %H:%M', MAX(b.date_recorded)) date_recorded
-  FROM user u
-  JOIN bmi b ON u.user_id = b.user_id
-  JOIN bmi_analysis ba ON u.age BETWEEN ba.age_min AND ba.age_max
- WHERE b.user_id = {user_id}
- GROUP BY b.user_id'''
+SELECT MAX(ID) FROM simulation;'''
 
     try:
         cur.execute(query)
         res = cur.fetchone()
         
-        if res:
-            print("Analyse des dernières données en date pour l'utilisateur", res[0], "au", res[6])
-            print(f"Données utilisées : âge={res[1]} ans / taille={res[3]} cm / poids={res[2]}")
-            print(f"L'IMC est de {res[4]} ; ce qui correspond à un(e) '{res[5]}'.")
-            print("")
-        else:
-            print("Attention, l'âge de cet utilisateur n'est pas >= 19 ans. L'analyse ne peut pas être effectuée.")
+        IDmax = res[0]
 
     except:
         query_error(query)
+    
+    return IDmax

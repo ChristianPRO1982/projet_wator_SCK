@@ -1,6 +1,7 @@
 import os
 import time
 import initialisation
+import SQL
 import monde
 from poisson import Poisson
 from requin import Requin
@@ -9,12 +10,17 @@ from requin import Requin
 largeur_monde = int(initialisation.largeur_monde)
 hauteur_monde = int(initialisation.hauteur_monde)
 temps_reproduction_poisson = int(initialisation.temps_reproduction_poisson)
+temps_reproduction_poisson_max = int(initialisation.temps_reproduction_poisson_max)
 temps_reproduction_requin = int(initialisation.temps_reproduction_requin)
+temps_reproduction_requin_max = int(initialisation.temps_reproduction_requin_max)
 temps_energie_requin = int(initialisation.temps_energie_requin)
+temps_energie_requin_max = int(initialisation.temps_energie_requin_max)
 chronon = int(initialisation.chronon)
 nb_poissons_init = int(initialisation.nb_poissons_init)
+nb_poissons_init_max = int(initialisation.nb_poissons_init_max)
 nb_requins_init = int(initialisation.nb_requins_init)
-energie = 3
+nb_requins_init_max = int(initialisation.nb_requins_init_max)
+energie = 3 # énergie potentiel d'un poisson
 
 # génération du monde vide
 monde = monde.Monde(largeur_monde,
@@ -37,6 +43,7 @@ for i in range(nb_requins_init):
 
 os.system("clear")
 print(monde, "init")
+etat_du_monde = [] # permet de sauvegarder l'état du monde à chaque chronon
 tour = 1
 while tour <= chronon:
     time.sleep(0.3)
@@ -48,9 +55,14 @@ while tour <= chronon:
         liste_de_choix = monde.liste_de_choix(animal.position)
 
         # l'ANIMAL se déplace
-        ancienne_position, nouvelle_position, bebe = animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde)
+        ancienne_position, nouvelle_position, bebe, manger = animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde)
         
         # l'ANIMAL indique au MONDE  ses actions
+
+        # l'ANIMAL mange un autre animal dans la nouvelle position
+        if manger == True:
+            monde.animal_mange(nouvelle_position)
+
         # l'ANIMAL se déplace
         if ancienne_position != nouvelle_position:
             monde.deplacer_animal(animal, ancienne_position, nouvelle_position)
@@ -66,4 +78,9 @@ while tour <= chronon:
             monde.ajout_animal(nouvel_animal, nouvel_animal.position)
 
     print(monde, tour, "/", chronon)
+    etat_du_monde.append((tour, monde.nb_poisson, monde.nb_requin, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin))
     tour += 1
+
+# on ajoute la simulation en BDD
+SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin)
+SQL.new_simulation_evolution(etat_du_monde)

@@ -25,7 +25,7 @@ class Poisson:
     def liste_des_choix(self, liste_des_choix):
         liste_des_choix_poisson = []
         for choix in liste_des_choix:
-            if choix[2] == 0:
+            if choix[1] == "":
                 liste_des_choix_poisson.append(choix[0])
         return liste_des_choix_poisson
 
