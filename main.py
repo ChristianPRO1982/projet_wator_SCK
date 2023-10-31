@@ -124,11 +124,11 @@ if auto_simu == 1:
                         print("nb_requins", nb_requins)
                         monde = new_monde.Monde(largeur_monde,
                                             hauteur_monde,
-                                            temps_reproduction_poisson,
-                                            temps_reproduction_requin,
-                                            temps_energie_requin,
-                                            nb_poissons_init,
-                                            nb_requins_init)
+                                            tps_reproduction_poisson,
+                                            tps_reproduction_requin,
+                                            tps_energie_requin,
+                                            nb_poissons,
+                                            nb_requins)
                         simulation(auto_simu, monde)
                         del monde
 
