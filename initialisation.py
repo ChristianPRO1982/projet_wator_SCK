@@ -50,6 +50,8 @@ with open('monde.ini', 'r') as f:
                 nb_requins_init = ligne[1]
             elif ligne[0] == 'nb_requins_init_max':
                 nb_requins_init_max = ligne[1]
+            elif ligne[0] == 'auto_simu':
+                auto_simu = ligne[1]
         line = f.readline()  # Lire la ligne suivante
 
 # Fermer le fichier automatiquement à la fin du bloc 'with'
