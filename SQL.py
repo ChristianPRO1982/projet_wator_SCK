@@ -82,8 +82,8 @@ INSERT INTO simulation (date,
              {monde.nb_requins_init},
              {chronon},
              {chronon_stop},
-             {monde.nb_poisson},
-             {monde.nb_requin},
+             {monde.nb_animal('P')},
+             {monde.nb_animal('R')},
              {nb_eau_fin})'''
 
     try:
@@ -132,6 +132,47 @@ SELECT MAX(ID) FROM simulation;'''
         res = cur.fetchone()
         
         IDmax = res[0]
+
+    except:
+        query_error(query)
+    
+    return IDmax
+
+
+def graph_valeur_max(graphID: int):
+    # on récupère les données du graphique demandé
+
+    query = f'''
+SELECT MAX(se.tour) nb_valeur, MAX(MAX(se.nb_poisson), MAX(se.nb_requin)) max_valeur
+  FROM simulation_evolution se 
+ WHERE se.ID = {graphID};'''
+
+    try:
+        cur.execute(query)
+        res = cur.fetchone()
+        
+        return res[0], res[1]
+
+    except:
+        query_error(query)
+    
+    return IDmax
+
+
+def graph_valeurs(graphID: int):
+    # on récupère les données du graphique demandé
+
+    query = f'''
+SELECT se.nb_poisson, se.nb_requin, se.nb_eau
+  FROM simulation_evolution se 
+ WHERE se.ID = {graphID}
+ ORDER BY se.tour;'''
+
+    try:
+        cur.execute(query)
+        res = cur.fetchall()
+        
+        return res
 
     except:
         query_error(query)

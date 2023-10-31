@@ -31,23 +31,25 @@ monde = monde.Monde(largeur_monde,
                     nb_poissons_init,
                     nb_requins_init)
 
-# génération des poissons (initialisation)
-for i in range(nb_poissons_init):
-    nouveau_poisson = Poisson(monde.newID(), temps_reproduction_poisson, energie, monde.initialisation_position_animal())
-    monde.ajout_animal(nouveau_poisson, nouveau_poisson.position)
 
 # génération des requins (initialisation)
 for i in range(nb_requins_init):
     nouveau_requin = Requin(monde.newID(), temps_energie_requin, temps_reproduction_requin, monde.initialisation_position_animal())
     monde.ajout_animal(nouveau_requin, nouveau_requin.position)
 
+# génération des poissons (initialisation)
+for i in range(nb_poissons_init):
+    nouveau_poisson = Poisson(monde.newID(), temps_reproduction_poisson, energie, monde.initialisation_position_animal())
+    monde.ajout_animal(nouveau_poisson, nouveau_poisson.position)
+
 os.system("clear")
 print(monde, "init")
 etat_du_monde = [] # permet de sauvegarder l'état du monde à chaque chronon
-tour = 1
-while tour <= chronon:
-    time.sleep(0.5)
-    # os.system("clear")
+tour = 0
+while tour < chronon and monde.nb_animal("P") > 0 and monde.nb_animal("R"):
+    tour += 1
+    time.sleep(0.1)
+    os.system("clear")
 
     # à chaque tour de la simulation, MAIN appelle tous les ANIMAUX pour appliquer les règles du jeu
     for animal in monde.liste_animaux:
@@ -95,11 +97,10 @@ while tour <= chronon:
             indice_animal += 1
 
     print(monde, tour, "/", chronon)
-    print("nombre de poissons :", monde.nb_poisson)
-    print("nombre de requins :", monde.nb_requin)
-    etat_du_monde.append((tour, monde.nb_poisson, monde.nb_requin, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin))
-    tour += 1
+    print("nombre de poissons :", monde.nb_animal('P'))
+    print("nombre de requins :", monde.nb_animal('R'))
+    etat_du_monde.append((tour, monde.nb_animal('P'), monde.nb_animal('R'), largeur_monde * hauteur_monde - monde.nb_animal('P') - monde.nb_animal('R')))
 
 # on ajoute la simulation en BDD
-# SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_poisson - monde.nb_requin)
-# SQL.new_simulation_evolution(etat_du_monde)
+SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_animal("P") - monde.nb_animal("R"))
+SQL.new_simulation_evolution(etat_du_monde)
