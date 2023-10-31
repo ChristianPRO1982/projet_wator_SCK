@@ -142,3 +142,4 @@ else:
                         nb_poissons_init,
                         nb_requins_init)
     simulation(auto_simu, monde)
+    
