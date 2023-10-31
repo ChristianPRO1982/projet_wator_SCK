@@ -17,11 +17,15 @@ class Requin(Poisson):
     #  creer une methode pour nourrir le requin
     def nourrir(self,nourriture):
         self.energie += nourriture
+        if self.energie > self.energie_max:
+            self.energie = self.energie_max
 
 
     #  on va creer une methode pour baisser l'enrgie du requin s'il mange pas
     def baisse_energie(self):
         self.energie -= 1
+
+
 
 
     def liste_des_choix(self, liste_des_choix):

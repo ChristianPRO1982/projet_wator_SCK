@@ -20,7 +20,7 @@ class Monde:
         self.ID_animal = 0 # initialisation identifiant
         self.nb_poisson_max = 0 # nombre de poisson au maximum obtenu pendant la simulation
         self.nb_requin_max = 0 # nombre de requin au maximum obtenu pendant la simulation
-
+        
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
         #                 et non de 0 à "largeur_monde - 1" ou "hauteur_monde - 1"
@@ -123,7 +123,7 @@ class Monde:
                 break
             i += 1
         
-        # on récupère l'énergie de l'animal mangé
+        #  on récupère l'énergie de l'animal mangé
         energie = self.liste_animaux[index_animal_mange].energie
 
         # on supprime de la liste des animaux l'animal mangé
