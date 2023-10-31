@@ -1,0 +1,41 @@
+31/10/2023
+
+Kévin
+ce que j’ai fait hier
+*relecture du code pour : 
+*comprendre le code
+*connaitre la structure
+*commentaire du code
+ce que je fais aujourd’hui
+*parler du code
+*déboguer
+*voir les problématiques du code en équipe
+les difficultés
+*non maitrise du code
+*compréhension de chaque partie du code acqui MAIS un manque de maitrise pour faire de tête le lien entre les arguments et comment on appelle une fonction → utilisation de pyreverse
+
+
+Saïf
+ce que j’ai fait hier
+*relecture du code avec expérimentation des méthodes pour comprendre et maitriser le code
+*création d’une version papier du code avec les attributs et les méthodes
+ce que je fais aujourd’hui
+*débogage du code requin
+*relecture du code avec Christian
+les difficultés
+*besoin de connaitre les “chemins” dans les appels des méthodes
+*comprendre l’héritage pour éviter le copier/coller
+
+
+Christian
+ce que j’ai fait hier
+*finition du code et débogage après MERGE
+*initialisation d’une BDD pour affichage des résultats sous forme de graphique
+ce que je fais aujourd’hui
+*finir la partir graphique avec BDD
+*débogage
+*comprendre pygame
+les difficultés
+*exprimer mieux les besoins métier à mes collègues pour un travail efficient
+*gérer les datelines entre mes collègues
+*pygame
