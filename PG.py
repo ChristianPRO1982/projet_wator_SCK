@@ -18,9 +18,9 @@ eau_img = pygame.image.load("images/eau.jpg")
 
 
 def execution (monde):
-    x_image = 0
     y_image = 0
     for ligne in monde.tableau_monde:
+        x_image= 0
         for colonne in ligne:
             if str(colonne) == "P":
                 image = poisson_img
