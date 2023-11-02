@@ -15,7 +15,7 @@ poisson_img = pygame.image.load("images/poisson2.jpg")
 requin_img = pygame.image.load("images/requin_image.jpg")
 eau_img = pygame.image.load("images/eau.jpg")
 
-
+fenetre.fill((255, 255, 255))
 
 def execution (monde):
     y_image = 0
@@ -32,6 +32,12 @@ def execution (monde):
             x_image=x_image+50
         y_image=y_image+50
     pygame.display.flip()
+    continuer = True
+    while continuer:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                continuer = False
+    return continuer
 
 def execution_finale():
     continuer = True

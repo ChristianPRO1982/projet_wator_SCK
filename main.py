@@ -98,11 +98,12 @@ def simulation(auto_simu, monde):
 
         if auto_simu == 0:
             print(monde, tour, "/", chronon)
-            PG.execution (monde)
+            if PG.execution (monde)== False:
+                break
             print("nombre de poissons :", monde.nb_animal('P'))
             print("nombre de requins :", monde.nb_animal('R'))
         etat_du_monde.append((tour, monde.nb_animal('P'), monde.nb_animal('R'), largeur_monde * hauteur_monde - monde.nb_animal('P') - monde.nb_animal('R')))
-    PG.execution_finale
+    PG.execution_finale()
     # on ajoute la simulation en BDD
     SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_animal("P") - monde.nb_animal("R"))
     SQL.new_simulation_evolution(etat_du_monde)
