@@ -24,6 +24,7 @@ chronon = int(initialisation.chronon)
 auto_simu = int(initialisation.auto_simu)
 
 
+import PG
 
 def simulation(auto_simu, monde):
     # génération des requins (initialisation)
@@ -96,6 +97,7 @@ def simulation(auto_simu, monde):
 
         if auto_simu == 0:
             print(monde, tour, "/", chronon)
+            PG.execution (monde)
             print("nombre de poissons :", monde.nb_animal('P'))
             print("nombre de requins :", monde.nb_animal('R'))
         etat_du_monde.append((tour, monde.nb_animal('P'), monde.nb_animal('R'), largeur_monde * hauteur_monde - monde.nb_animal('P') - monde.nb_animal('R')))
