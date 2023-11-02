@@ -11,9 +11,9 @@ hauteur_ecran = 600
 fenetre = pygame.display.set_mode((largeur_ecran, hauteur_ecran))
 
 # Chargez l'image depuis un fichier (l'image est dans le même dossier que le script)
-mon_image = pygame.image.load("poisson.jpg")
-mon_image2 = pygame.image.load("requin.jpg")
-mon_image3 = pygame.image.load("eau.jpg")
+mon_image = pygame.image.load("images/poisson2.jpg")
+mon_image2 = pygame.image.load("images/requin_image.jpg")
+mon_image3 = pygame.image.load("images/eau.jpg")
 
 
 
@@ -33,8 +33,8 @@ while continuer:
 
     # Affichez l'image à la position spécifiée
     fenetre.blit(mon_image, (x_image, y_image))
-    fenetre.blit(mon_image2, (x_image, y_image))
-    fenetre.blit(mon_image3, (x_image, y_image))
+    fenetre.blit(mon_image2, (x_image+50, y_image+50))
+    fenetre.blit(mon_image3, (x_image+100, y_image+100))
 
 
     # Rafraîchissez l'écran
