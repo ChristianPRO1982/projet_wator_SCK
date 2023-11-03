@@ -4,6 +4,7 @@ fish_test.py
 world_test.py
 maitre_jeu_test.py
 daily meeting du 02.11
+test_graphique.py
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,linux
