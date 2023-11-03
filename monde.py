@@ -8,7 +8,8 @@ class Monde:
                  temps_reproduction_requin: int,
                  temps_energie_requin: int,
                  nb_poissons_init: int,
-                 nb_requins_init: int) -> None:
+                 nb_requins_init: int,
+                 duree_jour_nuit: int) -> None:
         # initialisation des variables
         self.largeur_monde = largeur_monde
         self.hauteur_monde = hauteur_monde
@@ -20,6 +21,9 @@ class Monde:
         self.ID_animal = 0 # initialisation identifiant
         self.nb_poisson_max = 0 # nombre de poisson au maximum obtenu pendant la simulation
         self.nb_requin_max = 0 # nombre de requin au maximum obtenu pendant la simulation
+        # gestion du jour et de la nuit
+        self.jour_nuit = 1 # 1=jour / 0=nuit
+        self.duree_jour_nuit = duree_jour_nuit
         
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
@@ -62,7 +66,8 @@ class Monde:
 
     def ajout_animal(self, animal, position):
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
-        self.liste_animaux.append(animal)
+        if (animal not in ('A', 'C')):
+            self.liste_animaux.append(animal)
         self.tableau_monde[position[0]][position[1]] = animal
 
     
@@ -71,32 +76,28 @@ class Monde:
         # si un poisson existe dans une case, sa valeur nutritive est indiquée en plus
         liste_de_choix = []
         if self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]] == "¤":
-            liste_de_choix.append(("haut", "", 0))
+            liste_de_choix.append(("haut", ""))
         else:
             animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
-            if str(animal) == 'P':
-                liste_de_choix.append(("haut", "poisson", animal.energie))
+            liste_de_choix.append(("haut", animal))
         
         if self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]] == "¤":
-            liste_de_choix.append(("bas", "", 0))
+            liste_de_choix.append(("bas", ""))
         else:
             animal = self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]]
-            if str(animal) == 'P':
-                liste_de_choix.append(("bas", "poisson", animal.energie))
+            liste_de_choix.append(("bas", animal))
         
         if self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde] == "¤":
-            liste_de_choix.append(("droit", "", 0))
+            liste_de_choix.append(("droit", ""))
         else:
             animal = self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde]
-            if str(animal) == 'P':
-                liste_de_choix.append(("droit", "poisson", animal.energie))
+            liste_de_choix.append(("droit", animal))
         
         if self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde] == "¤":
-            liste_de_choix.append(("gauche", "", 0))
+            liste_de_choix.append(("gauche", ""))
         else:
             animal = self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde]
-            if str(animal) == 'P':
-                liste_de_choix.append(("gauche", "poisson", animal.energie))
+            liste_de_choix.append(("gauche", animal))
         
         return liste_de_choix
 
@@ -114,11 +115,12 @@ class Monde:
         return len(self.liste_animaux)
     
 
-    def animal_mange(self, position):
+    def animal_mange(self, position, animalID):# animalID correspond à l'ID de l'animal mangeur
         # on recherche dans la liste des animaux celui qui est dans la future position de l'animal qui est en train de le manger
         i = 0
         for animal in self.liste_animaux:
-            if animal.position[0] == position[0] and animal.position[1] == position[1] and str(animal) == 'P':
+            # if animal.position[0] == position[0] and animal.position[1] == position[1] and str(animal) == 'P':
+            if animal.position[0] == position[0] and animal.position[1] == position[1] and animal.ID != animalID:
                 index_animal_mange = i
                 break
             i += 1
