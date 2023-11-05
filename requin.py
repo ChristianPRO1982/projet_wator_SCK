@@ -16,10 +16,17 @@ class Requin(Poisson):
         return "R"
     
     #  creer une methode pour nourrir le requin
-    def nourrir(self,nourriture):
+    def nourrir(self, nourriture, monde):
         self.energie += nourriture
-        if self.energie > self.energie_max:
-            self.energie = self.energie_max
+
+        # prise en compte de la saison pour le niveau max d'énergie
+        energie_max = self.energie_max
+        if monde.saison == "été": energie_max *= 1.2
+        if monde.saison == "printemps": energie_max *= 1.1
+        if monde.saison == "hiver": energie_max *= 0.8
+
+        if self.energie > energie_max:
+            self.energie = energie_max
 
 
     #  on va creer une methode pour baisser l'enrgie du requin s'il mange pas

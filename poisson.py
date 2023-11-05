@@ -14,15 +14,26 @@ class Poisson:
         self.position = position
         self.gestation = 0
         self.temps_gestation = temps_gestation
-        # self.type = "poisson"
 
     def __str__(self):
         return "P"
     
-    def calcul_gestation(self):
-        self.gestation += 1
+    def calcul_gestation(self, monde):
+        # prise en compte de la saison pour le temps de gestation
+        temps_gestation_max = self.temps_gestation
+        if monde.saison == "été": temps_gestation_max *= 1.1
+        if monde.saison == "hiver": temps_gestation_max *= 0.9
+
+        # le temps de gestation peut être stopé selon les conditions de saison, de jour/nuit et d'espèce
+        if monde.saison in ("été", "hiver") or \
+        monde.saison == "printemps" and ((str(self) == "R" and monde.jour_nuit == 1) or str(self) == "P") or \
+        monde.saison == "automne" and ((str(self) == "P" and monde.jour_nuit == 0) or str(self) == "R"):
+            self.gestation += 1
+        # else:
+        #     print(monde.saison, self, monde.jour_nuit)
+
         bebe = False
-        if self.gestation == self.temps_gestation:
+        if self.gestation >= temps_gestation_max: #  B U G
             bebe = True
             self.gestation = 0
         return bebe
@@ -42,9 +53,6 @@ class Poisson:
         return ancienne_position, self.position, self.temps_gestation()
 
 
-
-    
-
     def liste_des_choix(self, liste_des_choix_tupple, jour_nuit):
         # on transforme le tuple retourné par la fonction "liste de choix" dans monde.py en liste
         #si l'energie est 0, on ajoute le premier indice qui est la direction
@@ -55,7 +63,7 @@ class Poisson:
         return liste_des_choix_poisson, False
 
 
-    def se_deplacer(self, liste_des_choix_tupple, largeur_monde, hauteur_monde, jour_nuit):
+    def se_deplacer(self, liste_des_choix_tupple, largeur_monde, hauteur_monde, jour_nuit, monde):
         # on sauvegarde l'ancienne position pour que MONDE mette de l'eau ou une naissance dans cette case
         ancienne_position = self.position
         
@@ -85,7 +93,7 @@ class Poisson:
                     self.position[1] = 0
         
 
-        return ancienne_position, self.position, self.calcul_gestation(),manger
+        return ancienne_position, self.position, self.calcul_gestation(monde),manger
 
 
 
