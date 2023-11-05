@@ -27,6 +27,10 @@ nuit_requin_cannibale_img = pygame.image.load("images/images/nuit_requin_canniba
 nuit_algue_img = pygame.image.load("images/images/nuit_algue.jpg")
 nuit_rocher_img = pygame.image.load("images/images/nuit_rocher.jpg")
 nuit_eau_img = pygame.image.load("images/images/nuit_eau.jpg")
+saison_ete_img = pygame.image.load("images/images/saison_ete.png")
+saison_automne_img = pygame.image.load("images/images/saison_automne.png")
+saison_hiver_img = pygame.image.load("images/images/saison_hiver.png")
+saison_printemps_img = pygame.image.load("images/images/saison_printemps.png")
 
 def execution (monde):
 
@@ -80,6 +84,16 @@ def execution (monde):
             x_image = x_image + 50
         y_image = y_image + 50
     
+    # ajout de la saison à l'affichage
+    if monde.saison == "été":
+        saison_img = saison_ete_img
+    elif monde.saison == "automne":
+        saison_img = saison_automne_img
+    elif monde.saison == "hiver":
+        saison_img = saison_hiver_img
+    else:
+        saison_img = saison_printemps_img
+    fenetre.blit(saison_img, (monde.saison_pos_x, monde.saison_pos_y))
     pygame.display.flip()
     
     continuer = True

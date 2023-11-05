@@ -25,6 +25,7 @@ nb_requins_init_max = int(initialisation.nb_requins_init_max)
 energie_poisson = int(initialisation.energie_poisson) # énergie potentiel d'un poisson
 energie_requin_cannibale = int(initialisation.energie_requin_cannibale) # energie à partir de laquelle un requin devient cannibale
 duree_jour_nuit = int(initialisation.duree_jour_nuit)
+duree_saison = int(initialisation.duree_saison)
 chronon = int(initialisation.chronon)
 auto_simu = int(initialisation.auto_simu)
 
@@ -67,7 +68,8 @@ def simulation(auto_simu, monde):
             liste_de_choix = monde.liste_de_choix(animal.position)
 
             # l'ANIMAL se déplace
-            ancienne_position, nouvelle_position, bebe, manger = animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde, monde.jour_nuit)
+            ancienne_position, nouvelle_position, bebe, manger = \
+                animal.se_deplacer(liste_de_choix, largeur_monde, hauteur_monde, monde.jour_nuit, monde)
             
 
             ##########################################
@@ -80,7 +82,7 @@ def simulation(auto_simu, monde):
 
             # l'ANIMAL mange un autre animal dans la nouvelle position
             if manger == True:
-                animal.nourrir(monde.animal_mange(nouvelle_position, animal.ID))
+                animal.nourrir(monde.animal_mange(nouvelle_position, animal.ID), monde)
                 
 
             # l'ANIMAL se déplace
@@ -113,11 +115,19 @@ def simulation(auto_simu, monde):
             print("nombre de requins :", monde.nb_animal('R'))
 
             if PG.execution (monde)== False:
+                # si on clique sur la croix pendant une simulation
+                # alors la simulation s'arrête mais reste afficher jusqu'à que l'on clique une deuxième fois
                 break
             
             # gestion du jour et de la nuit
+            # à chaque nouveau jour on déplace l'image de "saison"
             if tour % monde.duree_jour_nuit == 0:
                 monde.jour_nuit = abs(monde.jour_nuit - 1)
+                monde.saison_x_y()
+            
+            # gestion des saisons
+            if tour % duree_saison == 0:
+                monde.nouvelle_saison()
 
         etat_du_monde.append((tour, monde.nb_animal('P'), monde.nb_animal('R'), largeur_monde * hauteur_monde - monde.nb_animal('P') - monde.nb_animal('R')))
     PG.execution_finale()

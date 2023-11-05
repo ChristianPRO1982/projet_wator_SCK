@@ -17,6 +17,7 @@ nb_poissons_init_max = "15"
 nb_requins_init = "10"
 nb_requins_init_max = "15"
 duree_jour_nuit="10"
+duree_saison="10"
 auto_simu="0"
 chronon = "10"
 
@@ -63,6 +64,8 @@ with open('monde.ini', 'r') as f:
                 nb_requins_init_max = ligne[1]
             elif ligne[0] == 'duree_jour_nuit':
                 duree_jour_nuit = ligne[1]
+            elif ligne[0] == 'duree_saison':
+                duree_saison = ligne[1]
             elif ligne[0] == 'auto_simu':
                 auto_simu = ligne[1]
             elif ligne[0] == 'chronon':
