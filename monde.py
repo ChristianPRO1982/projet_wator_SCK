@@ -24,6 +24,10 @@ class Monde:
         # gestion du jour et de la nuit
         self.jour_nuit = 1 # 1=jour / 0=nuit
         self.duree_jour_nuit = duree_jour_nuit
+        # gestion des saisons
+        # pour gérer la position de la "saison" uniquement au changement de jour
+        self.saison_x_y()
+        self.saison = "été"
         
         # génération du monde
         # /!\ attention : les coordonnées commence à 1 pour aller à "largeur_monde" ou "hauteur_monde"
@@ -41,6 +45,22 @@ class Monde:
                 texte += str(colonne) + " "
             texte += "\n"
         return texte
+    
+
+    def saison_x_y(self):
+        self.saison_pos_x = randint(0, 900)
+        self.saison_pos_y = randint(0, 900)
+    
+
+    def nouvelle_saison(self):
+        if self.saison == "été":
+            self.saison = "automne"
+        elif self.saison == "automne":
+            self.saison = "hiver"
+        elif self.saison == "hiver":
+            self.saison = "printemps"
+        else:
+            self.saison = "été"
 
 
     def nb_animal(self, type_animal: str) -> int:
@@ -75,28 +95,29 @@ class Monde:
         # génère une liste str avec les mots : ["haut", "bas", "gauche", "droit"]
         # si un poisson existe dans une case, sa valeur nutritive est indiquée en plus
         liste_de_choix = []
-        if self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]] == "¤":
+        
+        animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
+        if animal == "¤":
             liste_de_choix.append(("haut", ""))
-        else:
-            animal = self.tableau_monde[(position[0]+1) % self.hauteur_monde][position[1]]
+        elif animal not in ('A', 'C'):
             liste_de_choix.append(("haut", animal))
         
-        if self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]] == "¤":
+        animal = self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]]
+        if animal == "¤":
             liste_de_choix.append(("bas", ""))
-        else:
-            animal = self.tableau_monde[(position[0]-1) % self.hauteur_monde][position[1]]
+        elif animal not in ('A', 'C'):
             liste_de_choix.append(("bas", animal))
         
-        if self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde] == "¤":
+        animal = self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde]
+        if animal == "¤":
             liste_de_choix.append(("droit", ""))
-        else:
-            animal = self.tableau_monde[position[0]][(position[1]+1) % self.largeur_monde]
+        elif animal not in ('A', 'C'):
             liste_de_choix.append(("droit", animal))
         
-        if self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde] == "¤":
+        animal = self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde]
+        if animal == "¤":
             liste_de_choix.append(("gauche", ""))
-        else:
-            animal = self.tableau_monde[position[0]][(position[1]-1) % self.largeur_monde]
+        elif animal not in ('A', 'C'):
             liste_de_choix.append(("gauche", animal))
         
         return liste_de_choix
