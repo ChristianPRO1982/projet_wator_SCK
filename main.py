@@ -27,7 +27,7 @@ duree_jour_nuit = int(initialisation.duree_jour_nuit)
 duree_saison = int(initialisation.duree_saison)
 chronon = int(initialisation.chronon)
 auto_simu = int(initialisation.auto_simu)
-time_sleep = int(initialisation.time_sleep)
+time_sleep = float(initialisation.time_sleep)
 
 if auto_simu == 0:
     import PG

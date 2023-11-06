@@ -39,22 +39,30 @@ class Requin(Poisson):
 
 
 
-    def liste_des_choix(self, liste_des_choix, jour_nuit)->list:
-        energie_max = 0
+    def liste_des_choix(self, liste_des_choix: list, jour_nuit: bool)->list:
+        # permet au requin d'affiner la liste de choix donner par MONDE selon ses règles de vie
+        
+        energie_max = 0 # permet de choisir l'animal le plus gros à manger (miam !)
+
+        # init
         liste_des_choix_poisson = []
         liste_des_choix_eau = []
+
         for choix in liste_des_choix:
             if (str(choix[1]) == 'P' or (str(choix[1]) == 'R' and self.image == "requin_cannibale")) and jour_nuit == 0:
                 if choix[1].energie > energie_max:
                     energie_max = choix[1].energie
                     liste_des_choix_poisson.clear()
-                    
-                liste_des_choix_poisson.append(choix[0])
-
-            else:
-                liste_des_choix_eau.append(choix[0])
                 
+                if choix[1].energie >= energie_max:
+                    liste_des_choix_poisson.append(choix[0])
+
+            elif str(choix[1]) == '':
+                liste_des_choix_eau.append(choix[0])
+        
         if len(liste_des_choix_poisson) == 0:
+            # s'il n'y a pas d'animaux à manger alors on renvoi la liste des choix "eau" en indiquant que le requin ne mange pas
             return liste_des_choix_eau, False
         else:
+            # sinon on renvoi la liste des animaux en indiquant que le requin mange
             return liste_des_choix_poisson, True
