@@ -47,12 +47,12 @@ class Monde:
         return texte
     
 
-    def saison_x_y(self):
+    def saison_x_y(self) -> int :
         self.saison_pos_x = randint(0, 900)
         self.saison_pos_y = randint(0, 900)
     
 
-    def nouvelle_saison(self):
+    def nouvelle_saison(self) -> str:
         if self.saison == "été":
             self.saison = "automne"
         elif self.saison == "automne":
@@ -71,27 +71,27 @@ class Monde:
         return nb
 
 
-    def initialisation_position_animal(self):
+    def initialisation_position_animal(self) -> list:
         while True:
             test_position = [randint(0, self.hauteur_monde - 1), randint(0, self.largeur_monde - 1)] # choix de la colonne / choix de la ligne
             if self.tableau_monde[test_position[0]][test_position[1]] == "¤":
                 return test_position
 
 
-    def newID(self):
+    def newID(self) -> int :
         # permet de générer un ID unique par animal
         self.ID_animal += 1
         return self.ID_animal
 
 
-    def ajout_animal(self, animal, position):
+    def ajout_animal(self, animal, position) -> None:
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
         if (animal not in ('A', 'C')):
             self.liste_animaux.append(animal)
         self.tableau_monde[position[0]][position[1]] = animal
 
     
-    def liste_de_choix(self, position):
+    def liste_de_choix(self, position) -> list:
         # génère une liste str avec les mots : ["haut", "bas", "gauche", "droit"]
         # si un poisson existe dans une case, sa valeur nutritive est indiquée en plus
         liste_de_choix = []
@@ -123,7 +123,7 @@ class Monde:
         return liste_de_choix
 
 
-    def deplacer_animal(self, animal, ancienne_position, nouvelle_position):
+    def deplacer_animal(self, animal, ancienne_position, nouvelle_position)-> None:
         # on déplace dans la nouvelle position le poisson
         self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = animal
         
@@ -131,12 +131,12 @@ class Monde:
         self.tableau_monde[ancienne_position[0]][ancienne_position[1]] = "¤"
     
 
-    def plein(self):
+    def plein(self) -> int:
         # pour vérifier qu'il reste au moins une place
         return len(self.liste_animaux)
     
 
-    def animal_mange(self, position, animalID):# animalID correspond à l'ID de l'animal mangeur
+    def animal_mange(self, position : tuple, animalID : int ) -> int :# animalID correspond à l'ID de l'animal mangeur
         # on recherche dans la liste des animaux celui qui est dans la future position de l'animal qui est en train de le manger
         i = 0
         for animal in self.liste_animaux:
@@ -156,7 +156,7 @@ class Monde:
         return energie
     
 
-    def mort_animal(self, animal):
+    def mort_animal(self, animal: object) -> None:
         # on récupère les coordonnées de l'animal
         # position = self.liste_animaux[animal].position
         position = animal.position

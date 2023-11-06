@@ -1,7 +1,7 @@
 from poisson import Poisson
 
 class Requin(Poisson):
-    def __init__(self, ID, energie, temps_reproduction_requin, position, energie_requin_cannibale):
+    def __init__(self, ID: int, energie : int, temps_reproduction_requin : int, position : int, energie_requin_cannibale :int):
         self.ID = ID
         self.energie = energie
         self.energie_max = energie
@@ -9,14 +9,14 @@ class Requin(Poisson):
         self.temps_gestation = temps_reproduction_requin
         self.position = position
         self.energie_requin_cannibale = energie_requin_cannibale
-        self.image = "requin"
+        self.image = "requin" 
 
 
     def __str__(self):
         return "R"
     
     #  creer une methode pour nourrir le requin
-    def nourrir(self, nourriture, monde):
+    def nourrir(self, nourriture, monde) -> int:
         self.energie += nourriture
 
         # prise en compte de la saison pour le niveau max d'énergie
@@ -30,7 +30,7 @@ class Requin(Poisson):
 
 
     #  on va creer une methode pour baisser l'enrgie du requin s'il mange pas
-    def baisse_energie(self):
+    def baisse_energie(self) -> int:
         self.energie -= 1
         self.image = "requin"
         if self.energie <= self.energie_requin_cannibale:
@@ -39,7 +39,7 @@ class Requin(Poisson):
 
 
 
-    def liste_des_choix(self, liste_des_choix, jour_nuit):
+    def liste_des_choix(self, liste_des_choix, jour_nuit)->list:
         energie_max = 0
         liste_des_choix_poisson = []
         liste_des_choix_eau = []

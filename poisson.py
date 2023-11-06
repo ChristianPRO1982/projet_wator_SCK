@@ -2,7 +2,7 @@ import random
 
 class Poisson:
 
-    def __init__(self, ID, temps_gestation, energie, position):
+    def __init__(self, ID : int, temps_gestation : int, energie : int, position : list):
         self.ID = ID
         self.energie = random.randint(energie - 1, energie + 1)
         if self.energie < energie:
@@ -15,10 +15,10 @@ class Poisson:
         self.gestation = 0
         self.temps_gestation = temps_gestation
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "P"
     
-    def calcul_gestation(self, monde):
+    def calcul_gestation(self, monde) -> bool:
         # prise en compte de la saison pour le temps de gestation
         temps_gestation_max = self.temps_gestation
         if monde.saison == "été": temps_gestation_max *= 1.1
@@ -39,21 +39,21 @@ class Poisson:
         return bebe
 
 
-    def se_deplacer(self, liste_des_choix):
-        ancienne_position = self.position
-        direction = random.choice(liste_des_choix)
-        if direction == "haut":
-            self.position = [self.position[0], self.position[1] + 1]
-        elif direction == "bas":
-            self.position == [self.position[0], self.position[1] - 1]
-        elif direction == "gauche":
-            self.position = [self.position[0] - 1, self.position[1]]
-        elif direction == "droite":
-            self.position = [self.position[0] + 1, self.position[1]]
-        return ancienne_position, self.position, self.temps_gestation()
+    # def se_deplacer(self, liste_des_choix):
+    #     ancienne_position = self.position
+    #     direction = random.choice(liste_des_choix)
+    #     if direction == "haut":
+    #         self.position = [self.position[0], self.position[1] + 1]
+    #     elif direction == "bas":
+    #         self.position == [self.position[0], self.position[1] - 1]
+    #     elif direction == "gauche":
+    #         self.position = [self.position[0] - 1, self.position[1]]
+    #     elif direction == "droite":
+    #         self.position = [self.position[0] + 1, self.position[1]]
+    #     return ancienne_position, self.position, self.temps_gestation()
 
 
-    def liste_des_choix(self, liste_des_choix_tupple, jour_nuit):
+    def liste_des_choix(self, liste_des_choix_tupple, jour_nuit)->list:
         # on transforme le tuple retourné par la fonction "liste de choix" dans monde.py en liste
         #si l'energie est 0, on ajoute le premier indice qui est la direction
         liste_des_choix_poisson = []
@@ -63,7 +63,7 @@ class Poisson:
         return liste_des_choix_poisson, False
 
 
-    def se_deplacer(self, liste_des_choix_tupple, largeur_monde, hauteur_monde, jour_nuit, monde):
+    def se_deplacer(self, liste_des_choix_tupple, largeur_monde, hauteur_monde, jour_nuit, monde) -> list:
         # on sauvegarde l'ancienne position pour que MONDE mette de l'eau ou une naissance dans cette case
         ancienne_position = self.position
         
