@@ -21,7 +21,7 @@ class Monde:
         self.ID_animal = 0 # initialisation identifiant
         self.nb_poisson_max = 0 # nombre de poisson au maximum obtenu pendant la simulation
         self.nb_requin_max = 0 # nombre de requin au maximum obtenu pendant la simulation
-        # gestion du jour et de la nuit
+        # gestion du jour et de la nuithttps://file+.vscode-resource.vscode-cdn.net/Users/saifali/Desktop/projet_wator_SCK/classes_PG.py.png?version%3D1699260405113
         self.jour_nuit = 1 # 1=jour / 0=nuit
         self.duree_jour_nuit = duree_jour_nuit
         # gestion des saisons
