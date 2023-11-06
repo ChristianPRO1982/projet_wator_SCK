@@ -39,19 +39,6 @@ class Poisson:
         return bebe
 
 
-    # def se_deplacer(self, liste_des_choix):
-    #     ancienne_position = self.position
-    #     direction = random.choice(liste_des_choix)
-    #     if direction == "haut":
-    #         self.position = [self.position[0], self.position[1] + 1]
-    #     elif direction == "bas":
-    #         self.position == [self.position[0], self.position[1] - 1]
-    #     elif direction == "gauche":
-    #         self.position = [self.position[0] - 1, self.position[1]]
-    #     elif direction == "droite":
-    #         self.position = [self.position[0] + 1, self.position[1]]
-    #     return ancienne_position, self.position, self.temps_gestation()
-
 
     def liste_des_choix(self, liste_des_choix_tupple, jour_nuit)->list:
         # on transforme le tuple retourné par la fonction "liste de choix" dans monde.py en liste
