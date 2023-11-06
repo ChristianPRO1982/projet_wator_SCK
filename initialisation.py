@@ -20,6 +20,7 @@ duree_jour_nuit="10"
 duree_saison="10"
 auto_simu="0"
 chronon = "10"
+time_sleep = "0.5"
 
 # Ouvrir un fichier en mode lecture
 with open('monde.ini', 'r') as f:
@@ -70,6 +71,8 @@ with open('monde.ini', 'r') as f:
                 auto_simu = ligne[1]
             elif ligne[0] == 'chronon':
                 chronon = ligne[1]
+            elif ligne[0] == 'time_sleep':
+                time_sleep = ligne[1]
         line = f.readline()  # Lire la ligne suivante
 
 # Fermer le fichier automatiquement à la fin du bloc 'with'

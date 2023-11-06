@@ -28,6 +28,7 @@ duree_jour_nuit = int(initialisation.duree_jour_nuit)
 duree_saison = int(initialisation.duree_saison)
 chronon = int(initialisation.chronon)
 auto_simu = int(initialisation.auto_simu)
+time_sleep = int(initialisation.time_sleep)
 
 
 
@@ -57,7 +58,7 @@ def simulation(auto_simu, monde):
     while tour < chronon and monde.nb_animal("P") > 0 and monde.nb_animal("R"):
         tour += 1
         if auto_simu == 0:
-            time.sleep(0.1)
+            time.sleep(time_sleep)
             os.system("clear")
         else:
             time.sleep(0)
