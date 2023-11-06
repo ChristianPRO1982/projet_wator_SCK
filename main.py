@@ -5,7 +5,6 @@ import SQL
 import monde as new_monde
 from poisson import Poisson
 from requin import Requin
-import PG
 
 # récupération des variables d'initialisation
 largeur_monde = int(initialisation.largeur_monde)
@@ -30,6 +29,8 @@ chronon = int(initialisation.chronon)
 auto_simu = int(initialisation.auto_simu)
 time_sleep = int(initialisation.time_sleep)
 
+if auto_simu == 0:
+    import PG
 
 
 
@@ -55,7 +56,7 @@ def simulation(auto_simu, monde):
         print(monde, "init")
     etat_du_monde = [] # permet de sauvegarder l'état du monde à chaque chronon
     tour = 0
-    while tour < chronon and monde.nb_animal("P") > 0 and monde.nb_animal("R"):
+    while tour < chronon and monde.nb_animal("P") > 0 and monde.nb_animal("R") > 0:
         tour += 1
         if auto_simu == 0:
             time.sleep(time_sleep)
@@ -131,7 +132,9 @@ def simulation(auto_simu, monde):
                 monde.nouvelle_saison()
 
         etat_du_monde.append((tour, monde.nb_animal('P'), monde.nb_animal('R'), largeur_monde * hauteur_monde - monde.nb_animal('P') - monde.nb_animal('R')))
-    PG.execution_finale()
+    
+    if auto_simu == 0:
+        PG.execution_finale()
     # on ajoute la simulation en BDD
     SQL.new_simulation(monde, tour, chronon, largeur_monde * hauteur_monde - monde.nb_animal("P") - monde.nb_animal("R"))
     SQL.new_simulation_evolution(etat_du_monde)
