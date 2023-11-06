@@ -48,11 +48,13 @@ class Monde:
     
 
     def saison_x_y(self) -> int :
+        # à chaque nouvelle saison l'image est placer au hazard
         self.saison_pos_x = randint(0, 900)
         self.saison_pos_y = randint(0, 900)
     
 
     def nouvelle_saison(self) -> str:
+        # gestion des saisons selon un paramètre général
         if self.saison == "été":
             self.saison = "automne"
         elif self.saison == "automne":
@@ -64,6 +66,7 @@ class Monde:
 
 
     def nb_animal(self, type_animal: str) -> int:
+        # compte le nombre d'animaux du type passer en argument
         nb = 0
         for animal in self.liste_animaux:
             if str(animal) == type_animal:
@@ -72,6 +75,7 @@ class Monde:
 
 
     def initialisation_position_animal(self) -> list:
+        # à l'initialisation du monde, les animaux sont placés au hazard
         while True:
             test_position = [randint(0, self.hauteur_monde - 1), randint(0, self.largeur_monde - 1)] # choix de la colonne / choix de la ligne
             if self.tableau_monde[test_position[0]][test_position[1]] == "¤":
