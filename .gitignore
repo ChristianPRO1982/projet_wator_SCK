@@ -7,6 +7,8 @@ daily meeting du 02.11
 test_graphique.py
 graphique.py
 wa-tor
+__pycache__
+venv
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,linux
