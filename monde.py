@@ -88,14 +88,14 @@ class Monde:
         return self.ID_animal
 
 
-    def ajout_animal(self, animal, position) -> None:
+    def ajout_animal(self, animal, position: list) -> None:
         # on ajoute le nouvel animal dans la "liste des animaux" et dans le "tableau_monde"
         if (animal not in ('A', 'C')):
             self.liste_animaux.append(animal)
         self.tableau_monde[position[0]][position[1]] = animal
 
     
-    def liste_de_choix(self, position) -> list:
+    def liste_de_choix(self, position: list) -> list:
         # génère une liste str avec les mots : ["haut", "bas", "gauche", "droit"]
         # si un poisson existe dans une case, sa valeur nutritive est indiquée en plus
         liste_de_choix = []
@@ -127,7 +127,7 @@ class Monde:
         return liste_de_choix
 
 
-    def deplacer_animal(self, animal, ancienne_position, nouvelle_position)-> None:
+    def deplacer_animal(self, animal: object, ancienne_position: list, nouvelle_position: list)-> None:
         # on déplace dans la nouvelle position le poisson
         self.tableau_monde[nouvelle_position[0]][nouvelle_position[1]] = animal
         
@@ -140,7 +140,7 @@ class Monde:
         return len(self.liste_animaux)
     
 
-    def animal_mange(self, position : tuple, animalID : int ) -> int :# animalID correspond à l'ID de l'animal mangeur
+    def animal_mange(self, position : list, animalID : int ) -> int :# animalID correspond à l'ID de l'animal mangeur
         # on recherche dans la liste des animaux celui qui est dans la future position de l'animal qui est en train de le manger
         i = 0
         for animal in self.liste_animaux:

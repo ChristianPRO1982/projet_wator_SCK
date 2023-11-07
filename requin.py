@@ -16,7 +16,7 @@ class Requin(Poisson):
         return "R"
     
     #  creer une methode pour nourrir le requin
-    def nourrir(self, nourriture, monde) -> int:
+    def nourrir(self, nourriture: int, monde: object) -> int:
         self.energie += nourriture
 
         # prise en compte de la saison pour le niveau max d'énergie
@@ -48,7 +48,7 @@ class Requin(Poisson):
         liste_des_choix_poisson = []
         liste_des_choix_eau = []
 
-        for choix in liste_des_choix:
+        for choix in liste_des_choix: # exemple : [(“haut”, poisson27), (“bas”, requin12), (“gauche”, “”)]
             if (str(choix[1]) == 'P' or (str(choix[1]) == 'R' and self.image == "requin_cannibale")) and jour_nuit == 0:
                 if choix[1].energie > energie_max:
                     energie_max = choix[1].energie
